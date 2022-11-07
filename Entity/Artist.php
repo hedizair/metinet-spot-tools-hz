@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-class Artist
+class Artist extends Model
 {
+    public string $id;
 
     public function __construct(
-        public string $id,
+        public string $idSpotify,
 
         public string $name,
 
@@ -18,18 +19,20 @@ class Artist
 
         public string $picture,
 
+
     )
     {
+        $this->table = "artists"; //table crée
     }
 
-    public function getId(): string
+    public function getIdSpotify(): string
     {
-        return $this->id;
+        return $this->idSpotify;
     }
 
-    public function setId(string $id): self
+    public function setIdSpotify(string $idSpotify): self
     {
-        $this->id = $id;
+        $this->idSpotify = $idSpotify;
         return $this;
     }
 

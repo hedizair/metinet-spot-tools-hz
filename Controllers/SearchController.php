@@ -108,5 +108,41 @@ class SearchController extends Controller
         $this->render('/search/tracks',compact("TAB_TRACKS_GET"));
     }
 
+    function favorite($id,$name){
+        //request artist
+        $ch = curl_init();
+
+
+        curl_setopt($ch, CURLOPT_URL, "https://api.spotify.com/v1/artists/$id");
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $_SESSION['token'] ));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch);
+        $jsonResult = json_decode($result);
+
+        if( isset($jsonResult->images[0]->url)){
+            $artist = new Artist(
+                $id,
+                $name,
+                $jsonResult->followers->total,
+                $jsonResult->genres,
+                $jsonResult->href,
+                $jsonResult->images[0]->url);
+        }else{
+            $artist = new Artist(
+                $id,
+                $name,
+                $jsonResult->followers,
+                $jsonResult->genres,
+                $jsonResult->href,
+                'NO');
+        }
+
+
+        //insert
+        $artist->create();
+        header("Location : /search");
+        exit();
+    }
+
 
 }

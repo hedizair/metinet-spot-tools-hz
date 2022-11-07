@@ -48,9 +48,9 @@ use App\Entity\Artist;
 
         <div class="container">
 
-            <form method="post" action="../search">
+            <form class="mb-3" method="post" action="../search">
                 <div class="mb-3">
-                    <label for="search-query" class="form-label">Rechercher un artist</label>
+                    <label for="search-query" class="form-label">Rechercher un artiste</label>
                     <input type="text" class="form-control" id="search-query" name="search-query" aria-describedby="search-query-help">
                     <div id="search-query-help" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
@@ -84,8 +84,12 @@ use App\Entity\Artist;
                                 
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <a href="http://localhost:8001/search/albums/'.$item->getId() .'" class="btn btn-sm btn-outline-secondary" role="button">Details</a>
-                                        <a href="'.$link.'" class="btn btn-sm btn-outline-secondary" role="button" target="_blank">Spotify-redirect</a>
+                                        <a href="/search/albums/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button">Details</a>
+                                        <a href="'.$link.'" class="btn btn-sm btn-outline-secondary" role="button" target="_blank">Spotify redirect</a>
+
+                                        <a href="/search/favorite/'.$item->getIdSpotify() .'/'.$item->getName() .'" class="btn btn-sm btn-outline-secondary" role="button">Add to fav</a>
+
+                                        
                                        
                                     </div>
                                     <small class="text-muted">9 mins</small>

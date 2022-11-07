@@ -14,8 +14,8 @@ class Db extends PDO
     // Informations de connexion
     private const DBHOST = 'localhost';
     private const DBUSER = 'root';
-    private const DBPASS = '';
-    private const DBNAME = 'demo';
+    private const DBPASS = 'root123456';
+    private const DBNAME = 'spot-tools';
 
     private function __construct()
     {
