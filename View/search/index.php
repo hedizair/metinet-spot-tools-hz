@@ -50,7 +50,7 @@ use App\Entity\Artist;
 
             <form method="post" action="../search">
                 <div class="mb-3">
-                    <label for="search-query" class="form-label">Un artist</label>
+                    <label for="search-query" class="form-label">Rechercher un artist</label>
                     <input type="text" class="form-control" id="search-query" name="search-query" aria-describedby="search-query-help">
                     <div id="search-query-help" class="form-text">We'll never share your email with anyone else.</div>
                 </div>

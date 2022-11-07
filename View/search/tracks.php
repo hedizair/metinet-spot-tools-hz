@@ -46,14 +46,36 @@
             <div class="row">
 
 
-                <?php
 
 
 
-                ?>
+                <table class="table table-success table-striped table-hover">
+                    <tr>
+                        <th>Titre</th>
+                        <th>Durée</th>
+                        <th>numero de track</th>
+                        <th>ID</th>
+                    </tr>
+
+                    <?php
+
+                        foreach ($TAB_TRACKS_GET as $item){
+                            echo
+                            '
+                                <tr>
+                                    <td>'.$item->getName() .'</td>
+                                    <td>'.$item->getDuration() .'</td>
+                                    <td>'.$item->getTrackNumber() .'</td>
+                                    <td>'.$item->getId() .'</td>
+                                </tr>
+                            ';
+                        }
+
+                    ?>
 
 
 
+                </table>
 
 
             </div>

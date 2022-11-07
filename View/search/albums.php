@@ -49,7 +49,7 @@
                 <?php
 
                 foreach($TAB_ALBUM_GET as $item){
-                    $link = str_replace("https://api.spotify.com/v1/artists/","https://open.spotify.com/artist/",$item->getLink());
+                    $link = str_replace("https://api.spotify.com/v1/albums/","https://open.spotify.com/album/",$item->getLink());
                     echo
                         '
                      <div class="col-md-4">

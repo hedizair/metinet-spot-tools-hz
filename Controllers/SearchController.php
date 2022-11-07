@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Autoloader;
 use App\Entity\Album;
 use App\Entity\Artist;
+use App\Entity\Track;
 
 
 class SearchController extends Controller
@@ -16,7 +17,6 @@ class SearchController extends Controller
 
         if(isset( $_POST['search-query'])){
             $searchQuery =  $_POST['search-query'];
-            var_dump($searchQuery);
 
             $ch = curl_init();
 
@@ -52,17 +52,11 @@ class SearchController extends Controller
 
     }
 
-    public function albums(){
-
-
-
-
-
-        $artistId = explode('/',$_SERVER['REQUEST_URI'])[3];
+    public function albums($artistId){
 
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, "https://api.spotify.com/v1/artists/".$artistId ."/albums");
+        curl_setopt($ch, CURLOPT_URL, "https://api.spotify.com/v1/artists/$artistId/albums");
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $_SESSION['token'] ));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($ch);
@@ -88,12 +82,12 @@ class SearchController extends Controller
         $this->render('/search/albums',compact("TAB_ALBUM_GET"));
     }
 
-    function tracks(){
-        $albumId = explode('/',$_SERVER['REQUEST_URI'])[3];
+    function tracks($albumId){
 
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, "https://api.spotify.com/v1/artists/".$artistId ."/albums");
+        curl_setopt($ch, CURLOPT_URL, "https://api.spotify.com/v1/albums/$albumId/tracks");
+
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $_SESSION['token'] ));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($ch);
@@ -103,20 +97,15 @@ class SearchController extends Controller
         $TAB_TRACKS_GET = [];
         foreach ($jsonResult->items as $value){
 
-            /*if(!isset($value->images[0]->url)){
-                $album = new Album($value->id,$value->name,$value->release_date,$value->total_tracks,$value->href,"NO");
-            }else{
-                $album = new Album($value->id,$value->name,$value->release_date,$value->total_tracks,$value->href,$value->images[0]->url);
-            }
-
-            array_push($TAB_ALBUM_GET,$album);*/
-
+            $track = new Track($value->id,$value->name,$value->duration_ms,$value->track_number,$value->href);
+            array_push($TAB_TRACKS_GET,$track);
 
         }
 
+
         curl_close($ch);
 
-        $this->render('/search/albums',compact("TAB_TRACKS_GET"));
+        $this->render('/search/tracks',compact("TAB_TRACKS_GET"));
     }
 
 
