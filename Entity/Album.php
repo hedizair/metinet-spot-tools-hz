@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-class Artist
+class Album
 {
 
     public function __construct(
@@ -10,9 +10,10 @@ class Artist
 
         public string $name,
 
-        public int    $followers,
 
-        public array  $genders,
+        public string $releaseDate,
+
+        public int  $totalTracks,
 
         public string $link,
 
@@ -44,25 +45,26 @@ class Artist
         return $this;
     }
 
-    public function setFollowers(int $followers): self
+    public function setTotaltracks(int $totaltracks): self
     {
-        $this->followers = $followers;
+        $this->totalTracks = $totaltracks;
         return $this;
     }
 
-    public function getFollowers(): int
+    public function getTotaltracks(): int
     {
-        return $this->followers;
+        return $this->totalTracks;
+
     }
 
-    public function getGenders(): array
+    public function getReleaseDate(): string
     {
-        return $this->genders;
+        return $this->releaseDate;
     }
 
-    public function setGenders(array $genders): self
+    public function setReleaseDate(string $date): self
     {
-        $this->genders = $genders;
+        $this->link = $date;
         return $this;
     }
 

@@ -13,4 +13,9 @@ class TestController extends Controller
     {
         $this->render('test/test');
     }
+
+    public function hedi()
+    {
+        $this->render('test/hedi');
+    }
 }
