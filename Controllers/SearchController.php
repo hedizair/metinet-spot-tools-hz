@@ -16,6 +16,7 @@ class SearchController extends Controller
         $TAB_ARTIST_GET = [];
 
         if(isset( $_POST['search-query'])){
+
             $searchQuery =  $_POST['search-query'];
 
             $ch = curl_init();

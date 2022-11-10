@@ -35,6 +35,7 @@ class AuthSpotify
             curl_close($ch);
 
 
+
             $_SESSION['token'] = $result['access_token'];
             $_SESSION['expire'] = time() + 3600;
         }
