@@ -14,7 +14,7 @@ class Db extends PDO
     // Informations de connexion
     private const DBHOST = 'localhost';
     private const DBUSER = 'root';
-    private const DBPASS = 'root123456'; //Enlever le mot de passe pour dév sur laptop perso car j'en ai aps mis
+    private const DBPASS = ''; //Enlever le mot de passe pour dév sur laptop perso car j'en ai aps mis
     private const DBNAME = 'spot-tools';
 
     private function __construct()

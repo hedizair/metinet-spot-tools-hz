@@ -38,22 +38,23 @@
 
 
 <main>
-
-
     <div class="container">
+        <div class="d-flex justify-content-center">
 
-        <form method="post" action="../search">
-            <div class="mb-3">
-                <label for="search-query" class="form-label">Rechercher un artist</label>
-                <input type="text" class="form-control" id="search-query" name="search-query" aria-describedby="search-query-help">
-                <div id="search-query-help" class="form-text">We'll never share your email with anyone else.</div>
-            </div>
+            <form class="col-6" method="post" action="../search">
+                <div class="mb-3">
+                    <label for="search-query" class="form-label">Rechercher un artist</label>
+                    <input type="text" class="form-control" id="search-query" name="search-query" aria-describedby="search-query-help">
+                    <div id="search-query-help" class="form-text">Entrez le nom de l'artist pour rechercher tous les résultats de votre recherche.</div>
+                </div>
 
 
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
 
+        </div>
     </div>
+
 
 </main>
 

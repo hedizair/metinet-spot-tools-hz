@@ -48,16 +48,24 @@ use App\Entity\Artist;
 
         <div class="container">
 
-            <form class="mb-3" method="post" action="../search">
-                <div class="mb-3">
-                    <label for="search-query" class="form-label">Rechercher un artiste</label>
-                    <input type="text" class="form-control" id="search-query" name="search-query" aria-describedby="search-query-help">
-                    <div id="search-query-help" class="form-text">We'll never share your email with anyone else.</div>
-                </div>
 
+            <div class="d-flex justify-content-center mb-2">
 
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+                <form class="col-6" method="post" action="../search">
+                    <div class="mb-3">
+                        <label for="search-query" class="form-label">Rechercher un artist</label>
+                        <input type="text" class="form-control" id="search-query" name="search-query" aria-describedby="search-query-help">
+                        <div id="search-query-help" class="form-text">Entrez le nom de l'artist pour rechercher tous les résultats de votre recherche.</div>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+
+                </form>
+
+            </div>
+
 
             <div class="row">
             <!-- faire un for each ici -->
@@ -69,8 +77,9 @@ use App\Entity\Artist;
                     $genders = '';
                     $link = str_replace("https://api.spotify.com/v1/artists/","https://open.spotify.com/artist/",$item->getLink());
                     foreach( $item->getGenders() as $gender){
-                        $genders .= '<li class="list-group-item">'.$gender.'</li>';
+                        $genders .= ''.$gender.' , ';
                     }
+
                     echo
                     '
                      <div class="col-md-4">
@@ -78,9 +87,9 @@ use App\Entity\Artist;
                             <div class="card-body">
                                 <img class="card-img-top" src=" '. $item->getPicture() .' "  data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" data-holder-rendered="true">
                                 <h3> '. $item->getName() . '</h3>
-                                <ul class="list-group mt-2 mb-2">
-                                  '.$genders .'
-                                </ul>
+                                <p>
+                                  Tags : '.$genders .'
+                                </p>
                                 
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">

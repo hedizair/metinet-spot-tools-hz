@@ -17,7 +17,7 @@ class SearchController extends Controller
 
         if(isset( $_POST['search-query'])){
 
-            $searchQuery =  $_POST['search-query'];
+            $searchQuery =  str_replace(' ','',$_POST['search-query']);
 
             $ch = curl_init();
 
@@ -110,7 +110,7 @@ class SearchController extends Controller
     }
 
     function favorite($id,$name){
-        //request artist
+
         $ch = curl_init();
 
 
@@ -139,7 +139,7 @@ class SearchController extends Controller
         }
 
 
-        //insert
+
         $artist->create();
         header("Location : /search");
         exit();
