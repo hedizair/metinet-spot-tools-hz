@@ -32,11 +32,6 @@ use App\Entity\Artist;
 
 
 
-<header class="p-3 mb-3 border-bottom gradient-blue-lol">
-
-</header>
-
-
 
 
 <main>
@@ -66,7 +61,7 @@ use App\Entity\Artist;
 
             </div>
 
-            <div class="album py-5 px-2 bg-light">
+            <div class="album py-5 px-2 bg-light border border-white-50">
                 <div class="row">
 
                 <?php
@@ -92,12 +87,14 @@ use App\Entity\Artist;
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <a href="/search/albums/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button">Details</a>
-                                        <a href="'.$link.'" class="btn btn-sm btn-outline-secondary" role="button" target="_blank">Spotify redirect</a>
+                                        <a href="'.$link.'" class="btn btn-sm btn-outline-secondary" role="button" target="_blank">Spotify redirect</a>';
 
-                                        <a href="/search/addFavorite/'.$item->getIdSpotify() .'/'.$item->getName() .'" class="btn btn-sm btn-outline-secondary" role="button">Add to fav</a>
+                    if( $TAB_ARTIST_FAVORITE[$item->getIdSpotify()] === true)
+                        echo '<a href="/favorite/deleteFavoriteArtist/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button">delete fav</a>';
+                    else
+                        echo '<a href="/favorite/addFavoriteArtist/'.$item->getIdSpotify() .'/'.$item->getName() .'" class="btn btn-sm btn-outline-secondary" role="button">Add to fav</a>';
 
-                                        
-                                       
+                    echo '                     
                                     </div>
                                     <small class="text-muted">9 mins</small>
                                 </div>

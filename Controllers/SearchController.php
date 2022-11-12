@@ -14,6 +14,7 @@ class SearchController extends Controller
     public function index(){
 
         $TAB_ARTIST_GET = [];
+        $TAB_ARTIST_FAVORITE = [];
 
         if(isset( $_POST['search-query'])){
 
@@ -38,6 +39,10 @@ class SearchController extends Controller
                 }
 
                 array_push($TAB_ARTIST_GET,$artist);
+                if($this->isFavoriteExist('artist',$artist->getIdSpotify()))
+                    $TAB_ARTIST_FAVORITE[$artist->getIdSpotify()] = true;
+                else
+                    $TAB_ARTIST_FAVORITE[$artist->getIdSpotify()] = false;
 
             }
 
@@ -49,7 +54,7 @@ class SearchController extends Controller
 
 
 
-        $this->render('/search/index',compact("TAB_ARTIST_GET"));
+        $this->render('/search/index',compact("TAB_ARTIST_GET","TAB_ARTIST_FAVORITE"));
 
     }
 
@@ -94,86 +99,45 @@ class SearchController extends Controller
         $result = curl_exec($ch);
         $jsonResult = json_decode($result);
 
-        var_dump($jsonResult->items[0]->track_number);
+
 
         $TAB_TRACKS_GET = [];
+        $TAB_TRACKS_FAVORITES = [];
         foreach ($jsonResult->items as $value){
 
             $track = new Track($value->id,$value->name,$value->duration_ms,$value->track_number,$value->href);
             array_push($TAB_TRACKS_GET,$track);
+            if($this->isFavoriteExist('artist',$track->getIdSpotify()))
+                $TAB_TRACKS_FAVORITES[$track->getIdSpotify()] = true;
+            else
+                $TAB_TRACKS_FAVORITES[$track->getIdSpotify()] = false;
 
         }
 
 
         curl_close($ch);
 
-        $this->render('/search/tracks',compact("TAB_TRACKS_GET","albumId"));
+        $this->render('/search/tracks',compact("TAB_TRACKS_GET","albumId","TAB_TRACKS_FAVORITES"));
     }
 
-    function addFavorite($id,$name){
-
-        $ch = curl_init();
-
-
-        curl_setopt($ch, CURLOPT_URL, "https://api.spotify.com/v1/artists/$id");
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $_SESSION['token'] ));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $result = curl_exec($ch);
-        $jsonResult = json_decode($result);
-
-        if( isset($jsonResult->images[0]->url)){
-            $artist = new Artist(
-                $id,
-                $name,
-                $jsonResult->followers->total,
-                $jsonResult->genres,
-                $jsonResult->href,
-                $jsonResult->images[0]->url);
-        }else{
-            $artist = new Artist(
-                $id,
-                $name,
-                $jsonResult->followers,
-                $jsonResult->genres,
-                $jsonResult->href,
-                'NO');
+    function isFavoriteExist($model, $dataSpotifyId){
+        $m = '';
+        if($model === 'artist'){
+            $m = new Artist('','',0,[''],'','');
+        }elseif($model === 'track'){
+            $m = new Track('','',0,0,'');
         }
 
-
-
-        $artist->create();
-        header("Location : /search");
-        exit();
+        if(empty($m->findBy(array('idSpotify' => $dataSpotifyId)))){
+            return false;
+        }else{
+            return true;
+        }
     }
 
-    function addFavoriteTrack($albumId,$trackNumber){
-
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, "https://api.spotify.com/v1/albums/$albumId/tracks");
-
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $_SESSION['token'] ));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $result = curl_exec($ch);
-        $jsonResult = json_decode($result);
-
-        $t = $jsonResult->items[$trackNumber];
-
-        $track = new Track($t->id,$t->name,$t->duration,$t->track_number,$t->link);
-
-        $track->create();
-        header("Location : /search");
-        exit();
 
 
 
-
-
-
-        //$track->create();
-        header("Location : /search");
-        exit();
-    }
 
 
 }

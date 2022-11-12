@@ -102,6 +102,7 @@ class Model extends Db
     }
 
 
+
     public function requete(string $sql, array $attributes = null)
     {
         // On récupère l'instance de Db

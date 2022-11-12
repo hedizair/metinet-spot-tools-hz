@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom border-white-50">
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom border-white-50 mb-5">
     <a class="navbar-brand" href="/">Mes pages</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

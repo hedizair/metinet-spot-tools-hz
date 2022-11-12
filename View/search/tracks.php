@@ -26,17 +26,10 @@
 
 
 
-<header class="p-3 mb-3 border-bottom gradient-blue-lol">
-
-</header>
-
-
-
-
 <main>
 
 
-    <div class="album py-5 bg-light">
+    <div class="album py-5 bg-light border border-white-50 px-2">
 
 
 
@@ -68,9 +61,14 @@
                                     <td>'.$item->getDuration() .'</td>
                                     <td>'.$item->getTrackNumber() .'</td>
                                     <td>'.$item->getIdSpotify() .'</td>
-                                    <td>
-                                        <a href="/search/addFavoriteTrack/'.$item->getIdSpotify() .'/'.$idAlbum.'" class="btn btn-sm btn-outline-secondary" role="button">Add to fav</a>
-                                    </td>
+                                    <td>';
+
+                                if( $TAB_TRACKS_FAVORITES[$item->getIdSpotify()] === true)
+                                    echo '<a href="/favorite/deleteFavoriteTrack/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button">delete fav</a>';
+                                else
+                                    echo '<a href="/favorite/addFavoriteTrack/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button">Add to fav</a>';
+
+                                echo '</td>
                                 </tr>
                             ';
                         }

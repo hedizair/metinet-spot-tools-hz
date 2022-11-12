@@ -26,9 +26,6 @@
 
 
 
-<header class="p-3 mb-3 border-bottom gradient-blue-lol">
-
-</header>
 
 
 
@@ -36,7 +33,7 @@
 <main>
 
 
-    <div class="album py-5 bg-light">
+    <div class="album py-5 bg-light border border-white-50">
 
 
 

@@ -32,14 +32,27 @@ use App\Entity\Artist;
 
 
 
-<header class="p-3 mb-3 border-bottom gradient-blue-lol">
-
-</header>
-
 
 
 
 <main>
+
+    <nav class="navbar navbar-expand-lg navbar-light mb-3 bg-light border border-white-50">
+
+
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/favorite">Albums</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/favorite/tracks">Tracks</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
 
     <form class="mb-3" method="post" action="../favorite">
         <div class="container d-flex flex-row">
@@ -68,7 +81,7 @@ use App\Entity\Artist;
         </div>
     </form>
 
-    <div class="album py-5 px-2 bg-light">
+    <div class="album py-5 px-2 bg-light border border-white-50">
 
         <div class="row">
 
@@ -97,10 +110,8 @@ use App\Entity\Artist;
                                         <a href="/search/albums/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button">Details</a>
                                         <a href="'.$link.'" class="btn btn-sm btn-outline-secondary" role="button" target="_blank">Spotify redirect</a>
 
-                                        <a href="/search/favorite/'.$item->getIdSpotify() .'/'.$item->getName() .'" class="btn btn-sm btn-outline-secondary" role="button">Add to fav</a>
+                                        <a href="/favorite/deleteFavoriteArtist/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button">delete fav</a>
 
-                                        
-                                       
                                     </div>
                                     <small class="text-muted">9 mins</small>
                                 </div>

@@ -26,40 +26,44 @@
 
 
 
-<header class="p-3 mb-3 border-bottom gradient-blue-lol">
-
-</header>
-
-
-
 
 <main>
 
+    <nav class="navbar navbar-expand-lg navbar-light mb-3 bg-light border border-white-50">
 
-    <div class="album py-5 bg-light">
 
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/favorite">Albums</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/favorite/tracks">Tracks</a>
+                </li>
 
+            </ul>
+        </div>
+    </nav>
+
+    <div class="album px-2 py-5 bg-light border border-white-50">
 
         <div class="container">
 
 
             <div class="row">
 
-
-
-
-
-                <table class="table table-success table-striped table-hover">
+                <table class="table table-success table-striped table-hover ">
                     <tr>
                         <th>Titre</th>
                         <th>Durée</th>
-                        <th>numero de track</th>
+                        <th>Numero de track</th>
                         <th>ID</th>
+                        <th>Favoris</th>
                     </tr>
 
                     <?php
 
-                    foreach ($TAB_TRACKS as $item){
+                    foreach ($TAB_TRACKS_ALL as $item){
                         echo
                             '
                                 <tr>
@@ -67,6 +71,7 @@
                                     <td>'.$item->getDuration() .'</td>
                                     <td>'.$item->getTrackNumber() .'</td>
                                     <td>'.$item->getIdSpotify() .'</td>
+                                    <td><a href="/favorite/deleteFavoriteTrack/'.$item->getIdSpotify().'" class="btn btn-sm btn-outline-secondary" role="button">delete fav</a></td>
                                 </tr>
                             ';
                     }
