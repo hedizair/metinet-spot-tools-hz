@@ -2,32 +2,34 @@
 
 namespace App\Entity;
 
-class Track
+class Track extends Model
 {
     public function __construct(
-        public string $id,
+        public string $idSpotify,
 
         public string $name,
 
-        public int  $duration,
+        public int    $duration,
 
-        public int  $trackNumber,
+        public int    $trackNumber,
 
         public string $link,
 
 
     )
     {
+        $this->table = "track"; //table crée
     }
 
-    public function getId(): string
+
+    public function getIdSpotify(): string
     {
-        return $this->id;
+        return $this->idSpotify;
     }
 
-    public function setId(string $id): self
+    public function setIdSpotify(string $idSpotify): self
     {
-        $this->id = $id;
+        $this->idSpotify = $idSpotify;
         return $this;
     }
 

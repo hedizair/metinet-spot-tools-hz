@@ -94,6 +94,7 @@ class SearchController extends Controller
         $result = curl_exec($ch);
         $jsonResult = json_decode($result);
 
+        var_dump($jsonResult->items[0]->track_number);
 
         $TAB_TRACKS_GET = [];
         foreach ($jsonResult->items as $value){
@@ -106,10 +107,10 @@ class SearchController extends Controller
 
         curl_close($ch);
 
-        $this->render('/search/tracks',compact("TAB_TRACKS_GET"));
+        $this->render('/search/tracks',compact("TAB_TRACKS_GET","albumId"));
     }
 
-    function favorite($id,$name){
+    function addFavorite($id,$name){
 
         $ch = curl_init();
 
@@ -141,6 +142,35 @@ class SearchController extends Controller
 
 
         $artist->create();
+        header("Location : /search");
+        exit();
+    }
+
+    function addFavoriteTrack($albumId,$trackNumber){
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, "https://api.spotify.com/v1/albums/$albumId/tracks");
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $_SESSION['token'] ));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch);
+        $jsonResult = json_decode($result);
+
+        $t = $jsonResult->items[$trackNumber];
+
+        $track = new Track($t->id,$t->name,$t->duration,$t->track_number,$t->link);
+
+        $track->create();
+        header("Location : /search");
+        exit();
+
+
+
+
+
+
+        //$track->create();
         header("Location : /search");
         exit();
     }

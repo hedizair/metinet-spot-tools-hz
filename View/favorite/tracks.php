@@ -53,27 +53,23 @@
                     <tr>
                         <th>Titre</th>
                         <th>Durée</th>
-                        <th>Numero de track</th>
+                        <th>numero de track</th>
                         <th>ID</th>
-                        <th>Favorite</th>
                     </tr>
 
                     <?php
 
-                        foreach ($TAB_TRACKS_GET as $item){
-                            echo
+                    foreach ($TAB_TRACKS as $item){
+                        echo
                             '
                                 <tr>
                                     <td>'.$item->getName() .'</td>
                                     <td>'.$item->getDuration() .'</td>
                                     <td>'.$item->getTrackNumber() .'</td>
                                     <td>'.$item->getIdSpotify() .'</td>
-                                    <td>
-                                        <a href="/search/addFavoriteTrack/'.$item->getIdSpotify() .'/'.$idAlbum.'" class="btn btn-sm btn-outline-secondary" role="button">Add to fav</a>
-                                    </td>
                                 </tr>
                             ';
-                        }
+                    }
 
                     ?>
 

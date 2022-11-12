@@ -22,7 +22,7 @@ class Artist extends Model
 
     )
     {
-        $this->table = "artists"; //table crée
+        $this->table = "artist"; //table crée
     }
 
     public function getIdSpotify(): string

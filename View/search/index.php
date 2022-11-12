@@ -42,20 +42,20 @@ use App\Entity\Artist;
 <main>
 
 
-    <div class="album py-5 bg-light">
+
 
 
 
         <div class="container">
 
 
-            <div class="d-flex justify-content-center mb-2">
+            <div class="d-flex justify-content-center mb-3">
 
                 <form class="col-6" method="post" action="../search">
                     <div class="mb-3">
-                        <label for="search-query" class="form-label">Rechercher un artist</label>
+                        <label for="search-query" class="form-label">Rechercher un artiste</label>
                         <input type="text" class="form-control" id="search-query" name="search-query" aria-describedby="search-query-help">
-                        <div id="search-query-help" class="form-text">Entrez le nom de l'artist pour rechercher tous les résultats de votre recherche.</div>
+                        <div id="search-query-help" class="form-text">Entrez le nom de l'artist pour afficher tous les résultats de votre recherche.</div>
                     </div>
 
                     <div class="d-flex justify-content-center">
@@ -66,10 +66,8 @@ use App\Entity\Artist;
 
             </div>
 
-
-            <div class="row">
-            <!-- faire un for each ici -->
-
+            <div class="album py-5 px-2 bg-light">
+                <div class="row">
 
                 <?php
 
@@ -96,7 +94,7 @@ use App\Entity\Artist;
                                         <a href="/search/albums/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button">Details</a>
                                         <a href="'.$link.'" class="btn btn-sm btn-outline-secondary" role="button" target="_blank">Spotify redirect</a>
 
-                                        <a href="/search/favorite/'.$item->getIdSpotify() .'/'.$item->getName() .'" class="btn btn-sm btn-outline-secondary" role="button">Add to fav</a>
+                                        <a href="/search/addFavorite/'.$item->getIdSpotify() .'/'.$item->getName() .'" class="btn btn-sm btn-outline-secondary" role="button">Add to fav</a>
 
                                         
                                        
@@ -115,9 +113,9 @@ use App\Entity\Artist;
 
 
 
-            </div>
+                </div>
+                </div>
         </div>
-    </div>
 
 
 </main>
