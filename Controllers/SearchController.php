@@ -17,7 +17,7 @@ class SearchController extends Controller
         $TAB_ARTIST_GET = [];
         $TAB_ARTIST_FAVORITE = [];
 
-        if(isset( $_POST['search-query'])){
+        if(isset( $_POST['search-query']) && $_POST['search-query'] !== ""){
 
             $searchQuery =  str_replace(' ','',$_POST['search-query']);
 
@@ -49,9 +49,6 @@ class SearchController extends Controller
 
             curl_close($ch);
         }
-
-
-
 
 
 

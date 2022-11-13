@@ -24,7 +24,7 @@ class FavoriteController extends Controller
         }
 
         if(isset($_POST['select-query']) && $_POST['select-query'] !== "" && $_POST['select-query'] !== 'all'){
-            echo $_POST['select-query'] ;
+            //echo $_POST['select-query'] ;
             $resultById = $artists->findBy(array('idSpotify' => $_POST['select-query']));
             array_push($TAB_RESULTS, new Artist(
                     $resultById[0]->idSpotify, $resultById[0]->name,$resultById[0]->followers,json_decode($resultById[0]->genders),$resultById[0]->link,$resultById[0]->picture)
@@ -91,8 +91,8 @@ class FavoriteController extends Controller
     function addFavoriteArtist($id,$name){
 
         if($this->isFavoriteExist('artist',$id)){
-            echo 'Deja en favoris';
-            header("Location : /search");
+            //echo 'Deja en favoris';
+            header("Location:/search");
             exit();
         }
 
@@ -129,7 +129,7 @@ class FavoriteController extends Controller
 
 
         $artist->create();
-        header("Location : /search");
+        header("Location:/search");
         exit();
     }
 
@@ -137,12 +137,15 @@ class FavoriteController extends Controller
     function deleteFavoriteArtist($idSpotify){
         if(!$this->isFavoriteExist('artist',$idSpotify)){
             echo "l'artiste n'existe pas en favorie";
-            header("Location : /search");
+            header("Location:/search");
             exit();
         }
         $artist = new Artist('','',0,[''],'','');
         $a = $artist->findBy(array('idSpotify' => $idSpotify));
         $artist->delete($a[0]->id);
+        header("Location:/search");
+        exit();
+
 
     }
 
@@ -163,27 +166,29 @@ class FavoriteController extends Controller
         $t = $jsonResult;
 
         if($this->isFavoriteExist('track',$t->id)){
-            echo 'Deja en favoris';
-            header("Location : /search");
+            //echo 'Deja en favoris';
+            header("Location:/search");
             exit();
         }
 
         $track = new Track($t->id,$t->name,$t->duration_ms,$t->track_number,$t->href);
 
         $track->create();
-        header("Location : /search");
+        header("Location:/search");
         exit();
     }
 
     function deleteFavoriteTrack($idSpotify){
         if(!$this->isFavoriteExist('track',$idSpotify)){
-            echo "la track n'existe pas en favorie";
+            //echo "la track n'existe pas en favorie";
             header("Location:/search");
             exit();
         }
         $track = new Track('','',0,0,'');
         $t = $track->findBy(array('idSpotify' => $idSpotify));
         $track->delete($t[0]->id);
+        header("Location:/search");
+        exit();
 
     }
 
@@ -201,8 +206,8 @@ class FavoriteController extends Controller
         $a = $jsonResult;
 
         if($this->isFavoriteExist('album',$a->id)){
-            echo 'Deja en favoris';
-            header("Location : /search");
+            //echo 'Deja en favoris';
+            header("Location:/search");
             exit();
         }
 
@@ -213,19 +218,22 @@ class FavoriteController extends Controller
         }
 
         $album->create();
-        header("Location : /search");
+        header("Location:/search");
         exit();
     }
 
     function deleteFavoriteAlbum($idSpotify){
         if(!$this->isFavoriteExist('album',$idSpotify)){
-            echo "l'album n'existe pas en favoris";
+            //echo "l'album n'existe pas en favoris";
             header("Location:/search");
             exit();
         }
         $album = new Album('','','',0,'','');
         $a = $album->findBy(array('idSpotify' => $idSpotify));
         $album->delete($a[0]->id);
+
+        header("Location:/search");
+        exit();
 
     }
 
