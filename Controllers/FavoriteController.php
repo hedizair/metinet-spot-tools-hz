@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Entity\Album;
 use App\Entity\Artist;
 use App\Entity\Model;
 use App\Entity\Track;
@@ -44,9 +45,9 @@ class FavoriteController extends Controller
     }
 
     public function tracks(){
-        $track = new Track('','',0,0,'');
+        $tracks = new Track('','',0,0,'');
 
-        $result = $track->findAll();
+        $result = $tracks->findAll();
         foreach ($result as $track){
             $TAB_TRACKS_ALL[] = new Track($track->idSpotify, $track->name, $track->duration, $track->trackNumber, $track->link);
         }
@@ -55,6 +56,36 @@ class FavoriteController extends Controller
         $this->render('/favorite/tracks',compact("TAB_TRACKS_ALL"));
 
 
+    }
+
+    public function albums(){
+        $albums = new Album('','','',0,'','');
+        $TAB_ALBUMS_ALL = [];
+        $TAB_RESULTS = [];
+
+
+        $result = $albums->findAll();
+
+        foreach ($result as $album){
+            array_push(
+                $TAB_ALBUMS_ALL
+                , new Album($album->idSpotify,$album->name,$album->releaseDate,$album->totalTracks,$album->link,$album->picture)
+            );
+        }
+
+        if(isset($_POST['select-query']) && $_POST['select-query'] !== "" && $_POST['select-query'] !== 'all'){
+
+            $resultById = $albums->findBy(array('idSpotify' => $_POST['select-query']));
+            array_push($TAB_RESULTS, new Album(
+                    $resultById[0]->idSpotify, $resultById[0]->name,$resultById[0]->releaseDate,$resultById[0]->totalTracks,$resultById[0]->link,$resultById[0]->picture,)
+            );
+        }else{
+
+            $TAB_RESULTS = $TAB_ALBUMS_ALL;
+        }
+
+
+        $this->render('/favorite/albums',compact("TAB_RESULTS","TAB_ALBUMS_ALL"));
     }
 
     function addFavoriteArtist($id,$name){
@@ -156,6 +187,50 @@ class FavoriteController extends Controller
 
     }
 
+    function addFavoriteAlbum($idSpotify){
+
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, "https://api.spotify.com/v1/albums/".$idSpotify);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $_SESSION['token'] ));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch);
+        $jsonResult = json_decode($result);
+
+        $a = $jsonResult;
+
+        if($this->isFavoriteExist('album',$a->id)){
+            echo 'Deja en favoris';
+            header("Location : /search");
+            exit();
+        }
+
+        if(!isset($a->images[0]->url)){
+            $album  = new Album($a->id,$a->name,$a->release_date,$a->total_tracks,$a->href,"NO");
+        }else{
+            $album = new Album($a->id,$a->name,$a->release_date,$a->total_tracks,$a->href,$a->images[0]->url);
+        }
+
+        $album->create();
+        header("Location : /search");
+        exit();
+    }
+
+    function deleteFavoriteAlbum($idSpotify){
+        if(!$this->isFavoriteExist('album',$idSpotify)){
+            echo "l'album n'existe pas en favoris";
+            header("Location:/search");
+            exit();
+        }
+        $album = new Album('','','',0,'','');
+        $a = $album->findBy(array('idSpotify' => $idSpotify));
+        $album->delete($a[0]->id);
+
+    }
+
+
+
 
     function isFavoriteExist($model, $dataSpotifyId){
         $m = '';
@@ -163,6 +238,9 @@ class FavoriteController extends Controller
             $m = new Artist('','',0,[''],'','');
         }elseif($model === 'track'){
             $m = new Track('','',0,0,'');
+        }
+        elseif($model === 'album'){
+            $m = new Album('','','',0,'','');
         }
 
         if(empty($m->findBy(array('idSpotify' => $dataSpotifyId)))){

@@ -62,6 +62,9 @@ use App\Entity\Artist;
             </div>
 
             <div class="album py-5 px-2 bg-light border border-white-50">
+
+                <h4>ARTISTES</h4>
+
                 <div class="row">
 
                 <?php
@@ -111,7 +114,7 @@ use App\Entity\Artist;
 
 
                 </div>
-                </div>
+            </div>
         </div>
 
 

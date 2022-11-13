@@ -28,20 +28,27 @@
 
 <main>
 
+    <div class="container">
 
-    <div class="album py-5 bg-light border border-white-50 px-2">
+        <div class="d-flex justify-content-center mb-3">
 
+            <form class="col-6" method="post" action="/search">
+                <div class="mb-3">
+                    <label for="search-query" class="form-label">Rechercher un artiste</label>
+                    <input type="text" class="form-control" id="search-query" name="search-query" aria-describedby="search-query-help">
+                    <div id="search-query-help" class="form-text">Entrez le nom de l'artist pour afficher tous les résultats de votre recherche.</div>
+                </div>
 
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
 
-        <div class="container">
+            </form>
 
+        </div>
 
-            <div class="row">
-
-
-
-
-
+        <div class="album py-5 bg-light border border-white-50 px-2">
+            <h4>TRACKS</h4>
                 <table class="table table-success table-striped table-hover">
                     <tr>
                         <th>Titre</th>
@@ -79,11 +86,8 @@
 
                 </table>
 
-
-            </div>
         </div>
     </div>
-
 
 </main>
 

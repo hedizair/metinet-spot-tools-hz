@@ -6,6 +6,7 @@ use App\Autoloader;
 use App\Entity\Album;
 use App\Entity\Artist;
 use App\Entity\Track;
+use Cassandra\Exception\AlreadyExistsException;
 
 
 class SearchController extends Controller
@@ -70,6 +71,7 @@ class SearchController extends Controller
 
 
         $TAB_ALBUM_GET = [];
+        $TAB_ALBUMS_FAVORITES = [];
         foreach ($jsonResult->items as $value){
 
             if(!isset($value->images[0]->url)){
@@ -80,12 +82,17 @@ class SearchController extends Controller
 
             array_push($TAB_ALBUM_GET,$album);
 
+            if($this->isFavoriteExist('album',$album->getIdSpotify()))
+                $TAB_ALBUMS_FAVORITES[$album->getIdSpotify()] = true;
+            else
+                $TAB_ALBUMS_FAVORITES[$album->getIdSpotify()] = false;
+
 
         }
 
         curl_close($ch);
 
-        $this->render('/search/albums',compact("TAB_ALBUM_GET"));
+        $this->render('/search/albums',compact("TAB_ALBUM_GET","TAB_ALBUMS_FAVORITES"));
     }
 
     function tracks($albumId){
@@ -126,7 +133,10 @@ class SearchController extends Controller
             $m = new Artist('','',0,[''],'','');
         }elseif($model === 'track'){
             $m = new Track('','',0,0,'');
+        }elseif($model === 'album'){
+            $m = new Album('','','',0,'','');
         }
+
 
         if(empty($m->findBy(array('idSpotify' => $dataSpotifyId)))){
             return false;

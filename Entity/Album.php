@@ -2,18 +2,19 @@
 
 namespace App\Entity;
 
-class Album
+class Album extends Model
 {
+    public string $id;
 
     public function __construct(
-        public string $id,
+        public string $idSpotify,
 
         public string $name,
 
 
         public string $releaseDate,
 
-        public int  $totalTracks,
+        public int    $totalTracks,
 
         public string $link,
 
@@ -21,16 +22,17 @@ class Album
 
     )
     {
+        $this->table = "album"; //table crée
     }
 
-    public function getId(): string
+    public function getIdSpotify(): string
     {
-        return $this->id;
+        return $this->idSpotify;
     }
 
-    public function setId(string $id): self
+    public function setIdSpotify(string $idSpotify): self
     {
-        $this->id = $id;
+        $this->idSpotify = $idSpotify;
         return $this;
     }
 

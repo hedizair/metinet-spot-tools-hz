@@ -4,6 +4,9 @@ namespace App\Entity;
 
 class Track extends Model
 {
+
+    public string $id;
+
     public function __construct(
         public string $idSpotify,
 
