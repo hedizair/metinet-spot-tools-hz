@@ -11,8 +11,8 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom border-white-50 mb-5">
-    <a class="navbar-brand" href="/">Mes pages</a>
+<nav class="pl-3 navbar navbar-expand-lg navbar-light bg-light border-bottom border-white-50 mb-5">
+    <a class="navbar-brand" href="/">Spot tools</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -20,24 +20,24 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
+            <li class="mx-2 nav-item border border-black rounded-2 bg-white">
                 <a class="nav-link" href="/">Accueil</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/test">Test</a>
-            </li>
-            <li class="nav-item">
+
+            <li class="mx-2 nav-item border border-black rounded-2 bg-white">
                 <a class="nav-link" href="/test/hedi">Hedi</a>
             </li>
-            <li class="nav-item">
+            <li class="mx-2 nav-item border border-black rounded-2 bg-white">
                 <a class="nav-link" href="/search">Search</a>
             </li>
 
-            <li class="nav-item">
+            <li class="mx-2 nav-item border border-black rounded-2 bg-white">
                 <a class="nav-link" href="/favorite">Favoris</a>
             </li>
         </ul>
+
     </div>
+
 </nav>
 
 <div class="container">
@@ -54,9 +54,57 @@
     <?= $contenu ?>
 </div>
 
+<footer class="bg-light py-3 border-top mt-5">
+
+
+    <ul class="icon-size-footer icon nav justify-content-center mt-3 pb-3 mb-2">
+
+        <li class="nav-item">
+            <a href="https://fr-fr.facebook.com/" class="nav-link px-2 link-dark">
+                <p>Facebook</p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="https://www.instagram.com/?hl=fr" class="nav-link px-2 link-dark">
+                <p>Instagram</p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="" class="nav-link px-2 link-dark">
+                <p>Contact</p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="https://twitter.com/home" class="nav-link px-2 link-dark">
+                <p>Twitter</p>
+            </a>
+        </li>
+
+
+
+        <li class="nav-item">
+            <a href="https://www.reddit.com/" class="nav-link px-2 link-dark">
+                <p>Reddit</p>
+            </a>
+        </li>
+
+
+
+
+    </ul>
+
+    <p class="text-center link-dark">© 2021 Company, Inc</p>
+
+</footer>
+
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
 </body>
+
+
 
 </html>

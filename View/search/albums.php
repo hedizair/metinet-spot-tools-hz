@@ -51,7 +51,7 @@
 
         <div class="album py-5 bg-light border border-white-50 px-2">
 
-                <h4>ALBUM</h4>
+                <h4 class="mb-3">Liste des albums</h4>
                 <div class="row">
 
 
@@ -78,12 +78,12 @@
                                             <a href="'.$link.'" class="btn btn-sm btn-outline-secondary" role="button" target="_blank">Spotify-redirect</a>';
 
                         if( $TAB_ALBUMS_FAVORITES[$item->getIdSpotify()] === true)
-                            echo '<a href="/favorite/deleteFavoriteAlbum/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button">delete fav</a>';
+                            echo '<a href="/favorite/deleteFavoriteAlbum/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button"><img width="22px"  class="img-fluid" src="/croix.png"></a>';
                         else
-                            echo '<a href="/favorite/addFavoriteAlbum/'.$item->getIdSpotify() .'/'.$item->getName() .'" class="btn btn-sm btn-outline-secondary" role="button">Add to fav</a>';
+                            echo '<a href="/favorite/addFavoriteAlbum/'.$item->getIdSpotify() .'/'.$item->getName() .'" class="btn btn-sm btn-outline-secondary" role="button"><img width="22px"  class="img-fluid" src="/plus.png"></a>';
 
                                   echo '</div>
-                                        <small class="text-muted">9 mins</small>
+                                        <small class="text-muted">'.$item->getTotalTracks() .' tracks</small>
                                     </div>
                                 </div>
                             </div>

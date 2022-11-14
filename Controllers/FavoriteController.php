@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Entity\Album;
 use App\Entity\Artist;
-use App\Entity\Model;
 use App\Entity\Track;
 
 class FavoriteController extends Controller
@@ -13,8 +12,6 @@ class FavoriteController extends Controller
         $artists = new Artist('','',0,[''],'','');
         $TAB_ARTISTS_ALL = [];
         $TAB_RESULTS = [];
-        $result = [];
-        $resultById = [];
 
         $result = $artists->findAll();
         foreach ($result as $artist){
@@ -24,7 +21,7 @@ class FavoriteController extends Controller
         }
 
         if(isset($_POST['select-query']) && $_POST['select-query'] !== "" && $_POST['select-query'] !== 'all'){
-            //echo $_POST['select-query'] ;
+
             $resultById = $artists->findBy(array('idSpotify' => $_POST['select-query']));
             array_push($TAB_RESULTS, new Artist(
                     $resultById[0]->idSpotify, $resultById[0]->name,$resultById[0]->followers,json_decode($resultById[0]->genders),$resultById[0]->link,$resultById[0]->picture)
@@ -91,12 +88,10 @@ class FavoriteController extends Controller
     function addFavoriteArtist($id,$name){
 
         if($this->isFavoriteExist('artist',$id)){
-            //echo 'Deja en favoris';
+
             header("Location:/search");
             exit();
         }
-
-
 
 
         $ch = curl_init();
@@ -136,7 +131,6 @@ class FavoriteController extends Controller
 
     function deleteFavoriteArtist($idSpotify){
         if(!$this->isFavoriteExist('artist',$idSpotify)){
-            echo "l'artiste n'existe pas en favorie";
             header("Location:/search");
             exit();
         }
@@ -166,7 +160,7 @@ class FavoriteController extends Controller
         $t = $jsonResult;
 
         if($this->isFavoriteExist('track',$t->id)){
-            //echo 'Deja en favoris';
+
             header("Location:/search");
             exit();
         }
@@ -180,7 +174,7 @@ class FavoriteController extends Controller
 
     function deleteFavoriteTrack($idSpotify){
         if(!$this->isFavoriteExist('track',$idSpotify)){
-            //echo "la track n'existe pas en favorie";
+
             header("Location:/search");
             exit();
         }
@@ -206,7 +200,7 @@ class FavoriteController extends Controller
         $a = $jsonResult;
 
         if($this->isFavoriteExist('album',$a->id)){
-            //echo 'Deja en favoris';
+
             header("Location:/search");
             exit();
         }
@@ -224,7 +218,6 @@ class FavoriteController extends Controller
 
     function deleteFavoriteAlbum($idSpotify){
         if(!$this->isFavoriteExist('album',$idSpotify)){
-            //echo "l'album n'existe pas en favoris";
             header("Location:/search");
             exit();
         }
@@ -236,8 +229,6 @@ class FavoriteController extends Controller
         exit();
 
     }
-
-
 
 
     function isFavoriteExist($model, $dataSpotifyId){

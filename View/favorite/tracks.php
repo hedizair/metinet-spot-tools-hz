@@ -57,12 +57,14 @@
                     <th>Durée</th>
                     <th>Numero de track</th>
                     <th>ID</th>
+                    <th>Spotify</th>
                     <th>Favoris</th>
                 </tr>
 
                 <?php
 
                 foreach ($TAB_TRACKS_ALL as $item){
+                    $link = str_replace("https://api.spotify.com/v1/tracks/","https://open.spotify.com/track/",$item->getLink());
                     echo
                         '
                             <tr>
@@ -70,7 +72,8 @@
                                 <td>'.$item->getDuration() .'</td>
                                 <td>'.$item->getTrackNumber() .'</td>
                                 <td>'.$item->getIdSpotify() .'</td>
-                                <td><a href="/favorite/deleteFavoriteTrack/'.$item->getIdSpotify().'" class="btn btn-sm btn-outline-secondary" role="button">delete fav</a></td>
+                                <td><a target="_blank" href="'. $link .'" /> spotify redirect</td>
+                                <td><a href="/favorite/deleteFavoriteTrack/'.$item->getIdSpotify().'" class="btn btn-sm btn-outline-secondary" role="button"><img width="22px"  class="img-fluid" src="/croix.png"></a></td>
                             </tr>
                         ';
                 }

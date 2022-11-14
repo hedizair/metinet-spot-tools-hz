@@ -113,9 +113,9 @@ use App\Entity\Artist;
                                     <div class="btn-group">
                                         <a href="http://localhost:8001/search/tracks/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button">Details</a>
                                         <a href="'.$link.'" class="btn btn-sm btn-outline-secondary" role="button" target="_blank">Spotify-redirect</a>
-                                        <a href="/favorite/deleteFavoriteAlbum/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button">delete fav</a>
+                                        <a href="/favorite/deleteFavoriteAlbum/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button"><img width="22px"  class="img-fluid" src="/croix.png"></a>
                                      </div>
-                                    <small class="text-muted">9 mins</small>
+                                     <small class="text-muted">'.$item->getTotalTracks() .' tracks</small>
                                 </div>
                             </div>
                         </div>

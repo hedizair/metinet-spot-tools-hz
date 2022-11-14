@@ -2,11 +2,11 @@
 
 namespace App\Controllers;
 
-use App\Autoloader;
+
 use App\Entity\Album;
 use App\Entity\Artist;
 use App\Entity\Track;
-use Cassandra\Exception\AlreadyExistsException;
+
 
 
 class SearchController extends Controller
@@ -16,11 +16,12 @@ class SearchController extends Controller
 
         $TAB_ARTIST_GET = [];
         $TAB_ARTIST_FAVORITE = [];
+        $currentQuery = '';
 
         if(isset( $_POST['search-query']) && $_POST['search-query'] !== ""){
 
-            $searchQuery =  str_replace(' ','',$_POST['search-query']);
-
+            $searchQuery =  str_replace(' ','%20',$_POST['search-query']);
+            $currentQuery = $searchQuery;
             $ch = curl_init();
 
 
@@ -34,7 +35,7 @@ class SearchController extends Controller
             foreach ($jsonResult->artists->items as $key => $value){
 
                 if(!isset($value->images[0]->url)){
-                    $artist = new Artist($value->id,$value->name,$value->followers->total,$value->genres,$value->href,'NO');
+                    $artist = new Artist($value->id,$value->name,$value->followers->total,$value->genres,$value->href,'no-image.png');
                 }else{
                     $artist = new Artist($value->id,$value->name,$value->followers->total,$value->genres,$value->href,$value->images[0]->url);
                 }
@@ -50,9 +51,7 @@ class SearchController extends Controller
             curl_close($ch);
         }
 
-
-
-        $this->render('/search/index',compact("TAB_ARTIST_GET","TAB_ARTIST_FAVORITE"));
+        $this->render('/search/index',compact("TAB_ARTIST_GET","TAB_ARTIST_FAVORITE","currentQuery"));
 
     }
 
@@ -67,12 +66,13 @@ class SearchController extends Controller
         $jsonResult = json_decode($result);
 
 
+
         $TAB_ALBUM_GET = [];
         $TAB_ALBUMS_FAVORITES = [];
         foreach ($jsonResult->items as $value){
 
             if(!isset($value->images[0]->url)){
-                $album = new Album($value->id,$value->name,$value->release_date,$value->total_tracks,$value->href,"NO");
+                $album = new Album($value->id,$value->name,$value->release_date,$value->total_tracks,$value->href,"no-image.png");
             }else{
                 $album = new Album($value->id,$value->name,$value->release_date,$value->total_tracks,$value->href,$value->images[0]->url);
             }
@@ -111,7 +111,8 @@ class SearchController extends Controller
 
             $track = new Track($value->id,$value->name,$value->duration_ms,$value->track_number,$value->href);
             array_push($TAB_TRACKS_GET,$track);
-            if($this->isFavoriteExist('artist',$track->getIdSpotify()))
+
+            if($this->isFavoriteExist('track',$track->getIdSpotify()))
                 $TAB_TRACKS_FAVORITES[$track->getIdSpotify()] = true;
             else
                 $TAB_TRACKS_FAVORITES[$track->getIdSpotify()] = false;

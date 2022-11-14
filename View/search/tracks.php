@@ -48,19 +48,21 @@
         </div>
 
         <div class="album py-5 bg-light border border-white-50 px-2">
-            <h4>TRACKS</h4>
+            <h4 class="mb-3">Liste des tracks</h4>
                 <table class="table table-success table-striped table-hover">
                     <tr>
                         <th>Titre</th>
                         <th>Durée</th>
-                        <th>Numero de track</th>
+                        <th>Numéro de track</th>
                         <th>ID</th>
+                        <th>Spotify</th>
                         <th>Favorite</th>
                     </tr>
 
                     <?php
 
                         foreach ($TAB_TRACKS_GET as $item){
+                            $link = str_replace("https://api.spotify.com/v1/tracks/","https://open.spotify.com/track/",$item->getLink());
                             echo
                             '
                                 <tr>
@@ -68,12 +70,14 @@
                                     <td>'.$item->getDuration() .'</td>
                                     <td>'.$item->getTrackNumber() .'</td>
                                     <td>'.$item->getIdSpotify() .'</td>
+                                    <td><a target="_blank" href="'. $link .'" /> spotify redirect</td>
                                     <td>';
 
-                                if( $TAB_TRACKS_FAVORITES[$item->getIdSpotify()] === true)
-                                    echo '<a href="/favorite/deleteFavoriteTrack/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button">delete fav</a>';
+
+                                if( $TAB_TRACKS_FAVORITES[$item->getIdSpotify()] )
+                                    echo '<a href="/favorite/deleteFavoriteTrack/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button"><img width="22px"  class="img-fluid" src="/croix.png"></a>';
                                 else
-                                    echo '<a href="/favorite/addFavoriteTrack/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button">Add to fav</a>';
+                                    echo '<a href="/favorite/addFavoriteTrack/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button"><img width="22px"  class="img-fluid" src="/plus.png"></a>';
 
                                 echo '</td>
                                 </tr>

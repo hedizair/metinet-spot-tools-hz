@@ -69,7 +69,7 @@ use App\Entity\Artist;
                         <option value="all">Tous</option>
                         <?php
                         foreach($TAB_ARTISTS_ALL as $item){
-                            echo '<option value="'. $item->getIdSpotify().'"> '.$item->getName() .'</option>';
+                            echo '<option value="'. $item->getIdSpotify().'"> '.str_replace('%20',' ',$item->getName()) .'</option>';
                         }
                         ?>
 
@@ -104,7 +104,7 @@ use App\Entity\Artist;
                             <div class="card mb-4 box-shadow">
                                 <div class="card-body">
                                     <img class="card-img-top" src=" '. $item->getPicture() .' "  data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" data-holder-rendered="true">
-                                    <h3> '. $item->getName() . '</h3>
+                                    <h3> '. str_replace('%20',' ',$item->getName()) . '</h3>
                                     <p>
                                       Tags : '.$genders .'
                                     </p>
@@ -114,10 +114,10 @@ use App\Entity\Artist;
                                             <a href="/search/albums/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button">Details</a>
                                             <a href="'.$link.'" class="btn btn-sm btn-outline-secondary" role="button" target="_blank">Spotify redirect</a>
     
-                                            <a href="/favorite/deleteFavoriteArtist/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button">delete fav</a>
+                                            <a href="/favorite/deleteFavoriteArtist/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button"><img width="22px"  class="img-fluid" src="/croix.png"></a>
     
                                         </div>
-                                        <small class="text-muted">9 mins</small>
+                                        
                                     </div>
                                 </div>
                             </div>
