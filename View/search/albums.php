@@ -74,7 +74,7 @@
                                     
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
-                                            <a href="http://localhost:8001/search/tracks/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button">Details</a>
+                                            <a href="/search/tracks/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button">Details</a>
                                             <a href="'.$link.'" class="btn btn-sm btn-outline-secondary" role="button" target="_blank">Spotify-redirect</a>';
 
                         if( $TAB_ALBUMS_FAVORITES[$item->getIdSpotify()] === true)

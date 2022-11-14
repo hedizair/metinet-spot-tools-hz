@@ -111,7 +111,7 @@ use App\Entity\Artist;
                                 
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <a href="http://localhost:8001/search/tracks/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button">Details</a>
+                                        <a href="/search/tracks/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button">Details</a>
                                         <a href="'.$link.'" class="btn btn-sm btn-outline-secondary" role="button" target="_blank">Spotify-redirect</a>
                                         <a href="/favorite/deleteFavoriteAlbum/'.$item->getIdSpotify() .'" class="btn btn-sm btn-outline-secondary" role="button"><img width="22px"  class="img-fluid" src="/croix.png"></a>
                                      </div>
